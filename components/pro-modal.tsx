@@ -19,6 +19,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 import { tools } from "@/constants";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export const ProModal = () => {
   const proModal = useProModal();
@@ -57,7 +58,13 @@ export const ProModal = () => {
               >
                 <div className="flex items-center gap-x-4">
                   <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                    <tool.icon className={cn("w-6 h-6", tool.color)} />
+                    <Image
+                      src={tool.icon}
+                      alt={tool.label}
+                      width={64}
+                      height={64}
+                      className={`${tool.color} rounded-lg`}
+                    />
                   </div>
                   <div className="font-semibold text-sm">{tool.label}</div>
                 </div>
