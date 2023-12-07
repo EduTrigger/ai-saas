@@ -116,6 +116,7 @@ const ConversationPage = () => {
                       className="resize-none w-full focus:outline-none focus:ring-0"
                       disabled={isLoading}
                       placeholder="What is 3 + 3?"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
