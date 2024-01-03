@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { ChatCompletionRequestMessage } from "openai";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -26,7 +26,7 @@ import { formSchema } from "./constants";
 const ConversationPage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,7 +39,7 @@ const ConversationPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
+      const userMessage: ChatCompletionMessageParam = {
         role: "user",
         content: values.prompt,
       };
@@ -81,7 +81,7 @@ const ConversationPage = () => {
           <div className="flex flex-col gap-y-1">
             {messages.map((message) => (
               <div
-                key={message.content}
+                key={message.content?.toString()}
                 className={cn("p-8 w-full flex items-start gap-x-4 rounded-lg")}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
@@ -89,7 +89,7 @@ const ConversationPage = () => {
                   className="text-sm leading-relaxed"
                   style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
                 >
-                  {message.content}
+                  {message.content?.toString()}
                 </p>
               </div>
             ))}
