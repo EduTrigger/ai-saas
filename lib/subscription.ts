@@ -21,15 +21,20 @@ export const checkSubscription = async () => {
       stripeCustomerId: true,
       stripePriceId: true,
     },
-  })
-
+  });
+  console.log("userSubscription", userSubscription);
+  return true;
+  /*
   if (!userSubscription) {
     return false;
   }
 
   const isValid =
-    (userSubscription.stripePriceId || userSubscription.stripeCustomerId?.includes('victoria_user')) &&
-    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now()
+    (userSubscription.stripePriceId ||
+      userSubscription.stripeCustomerId?.includes("victoria_user")) &&
+    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
+      Date.now();
 
   return !!isValid;
+  */
 };
